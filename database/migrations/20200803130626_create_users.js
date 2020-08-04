@@ -9,6 +9,8 @@ exports.up = function(knex) {
       .notNullable();
     table.string('password')
       .notNullable();
+    table.string('role')
+      .defaultTo('USER')
     table.timestamp('created_at')
       .defaultTo(knex.fn.now());
   });

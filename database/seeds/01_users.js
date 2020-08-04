@@ -7,6 +7,7 @@ exports.seed = function(knex) {
           userName: 'Wasser',
           email: 'wasser@servebeer.com',
           password: '$2y$10$SaR8xEQF9Fe0.atiFa6ZbOMNxR.aq//p1FcqAd4v.7ZOrWUx53Fha',
+          role: 'ADMIN'
         },
         {
           userName: 'Hefe',
