@@ -4,24 +4,24 @@ exports.seed = function(knex) {
     .then(function () {
       return knex('users').insert([
         {
-          userName: 'Wasser',
-          email: 'wasser@servebeer.com',
+          userName: 'BierBaron',
+          email: 'admin@app.com',
           password: '$2y$10$SaR8xEQF9Fe0.atiFa6ZbOMNxR.aq//p1FcqAd4v.7ZOrWUx53Fha',
           role: 'ADMIN'
         },
         {
-          userName: 'Hefe',
-          email: 'hefe@servebeer.com',
+          userName: 'User A',
+          email: 'user_a@app.com',
           password: '$2y$10$SaR8xEQF9Fe0.atiFa6ZbOMNxR.aq//p1FcqAd4v.7ZOrWUx53Fha',
         },
         {
-          userName: 'Hopfen',
-          email: 'hopfen@servebeer.com',
+          userName: 'User B',
+          email: 'user_b@app.com',
           password: '$2y$10$SaR8xEQF9Fe0.atiFa6ZbOMNxR.aq//p1FcqAd4v.7ZOrWUx53Fha',
         },
         {
-          userName: 'Malz',
-          email: 'malz@servebeer.com',
+          userName: 'User C',
+          email: 'user_c@app.com',
           password: '$2y$10$SaR8xEQF9Fe0.atiFa6ZbOMNxR.aq//p1FcqAd4v.7ZOrWUx53Fha',
         }
       ]);

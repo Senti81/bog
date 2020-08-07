@@ -14,12 +14,16 @@
 
 <script>
 import axios from 'axios'
+import { mapGetters } from 'vuex'
 export default {
   data: () => ({
     eventList: []
   }),
+  computed: {
+    ...mapGetters(['getToken'])
+  },
   async created() {
-    const result = await axios.get('/api/events')
+    const result = await axios.get('/api/events', { headers: { 'X-Auth': this.getToken}})
     this.eventList = result.data
   },
 }

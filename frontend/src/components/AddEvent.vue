@@ -29,7 +29,9 @@
 
       <v-select
         v-model="form.host"
-        :items="items"
+        :items="getUserList"
+        item-text="userName"
+        item-value="id"
         :rules="[v => !!v || 'Host is required']"
         label="Host"
         required
@@ -39,16 +41,9 @@
         color="success"
         class="mr-4"
         @click="validate"
+        block
       >
         Ok
-      </v-btn>
-
-      <v-btn
-        color="error"
-        class="mr-4"
-        @click="reset"
-      >
-        Reset
       </v-btn>
     </v-form>
   </v-card>
@@ -56,6 +51,7 @@
 
 <script>
 import axios from 'axios'
+import { mapGetters } from 'vuex'
 export default {
   data: () => ({
     valid: true,
@@ -64,30 +60,17 @@ export default {
       motto: '',
       description: '',
       location: ''
-    },      
-    items: [
-      'Wasser',
-      'Hopfen',
-      'Malz',
-      'Hefe',
-    ],
-    response: ''
+    },
   }),
-
-  computed: {
-    getUserId() {
-      return this.$store.getters.getUserDetails.id
-    }
-  },
   methods: {
     async validate () {
       this.$refs.form.validate()
-      this.form.host = this.getUserId
-      await axios.post('/api/events', this.form)
-    },
-    reset () {
-      this.$refs.form.reset()      
+      // console.log(this.form)
+      await axios.post('/api/events', this.form, { headers: { 'X-Auth': this.getToken}})
     },
   },
+  computed: {
+    ...mapGetters(['getUserList', 'getToken'])
+  }
 }
 </script>

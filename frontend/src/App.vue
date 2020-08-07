@@ -1,31 +1,41 @@
 <template>
   <v-app>
-    <v-card class="d-flex flex-wrap py-3">
-      <Login/>
-      <AddEvent/>
-      <EventList/>
-    </v-card>
+    <Login v-if="!getToken" />
+    <v-container fluid class="fill-height" v-else>
+      <ApplicationBar/>
+      <v-main>
+        <router-view></router-view>
+      </v-main>
+      <BottomNavigation/>
+    </v-container>    
   </v-app>
 </template>
 
 <script>
-import AddEvent from './components/AddEvent';
-import EventList from './components/EventList';
-import Login from './components/Login'
-import { mapActions } from 'vuex'
+import Login from '@/components/Login'
+import ApplicationBar from '@/components/ApplicationBar'
+import BottomNavigation from '@/components/BottomNavigation'
+
+import { mapGetters } from 'vuex'
 
 export default {
+  data:() => ({
+  }),
   name: 'App',
   components: {
     Login,
-    AddEvent,
-    EventList,
+    ApplicationBar,
+    BottomNavigation
   },
   computed: {
-    ...mapActions(['setUsers']),
+    ...mapGetters(['getToken'])
   },
   mounted() {
-    this.setUsers
+    const token = localStorage.getItem('X-Auth')
+    if(token) {
+      this.$store.dispatch('validateToken', token)
+      this.$store.dispatch('loadUserList', token)
+    }
   }
 };
 </script>
