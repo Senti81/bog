@@ -1,30 +1,25 @@
 <template>
-  <v-card
-    class="mx-auto"
-    max-width="386"
-    outlined
-    elevation="4"
-  >
-    <v-card-title class="headline">EventList</v-card-title>
-    <v-card-text>
-      {{eventList}}
-    </v-card-text>
-  </v-card>
+  <v-data-table
+    :headers="headers"
+    :items="getEventList"
+    class="elevation-1 mb-8"
+  ></v-data-table>
 </template>
 
 <script>
-import axios from 'axios'
 import { mapGetters } from 'vuex'
 export default {
-  data: () => ({
-    eventList: []
+  data:() => ({
+    headers: [
+        { text: 'Date', value: 'created_at' },
+        { text: 'Description', value: 'description' },
+        { text: 'Host', value: 'host' },
+        { text: 'Location', value: 'location' },
+        { text: 'Motto', value: 'motto' },
+      ]
   }),
   computed: {
-    ...mapGetters(['getToken'])
-  },
-  async created() {
-    const result = await axios.get('/api/events', { headers: { 'X-Auth': this.getToken}})
-    this.eventList = result.data
-  },
+    ...mapGetters(['getEventList'])
+  }
 }
 </script>

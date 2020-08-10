@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <Login v-if="!getToken" />
-    <v-container fluid class="fill-height" v-else>
+    <v-container fluid v-else>
       <ApplicationBar/>
       <v-main>
         <router-view></router-view>
@@ -32,10 +32,8 @@ export default {
   },
   mounted() {
     const token = localStorage.getItem('X-Auth')
-    if(token) {
+    if(token)
       this.$store.dispatch('validateToken', token)
-      this.$store.dispatch('loadUserList', token)
-    }
   }
 };
 </script>
