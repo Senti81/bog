@@ -9,6 +9,14 @@ router.get('/', verify, async (req, res) => {
     res.json(result);
 });
 
+router.get('/active', verify, async (req, res) => {
+    const result = await knex('events')
+        .join('users', 'host', '=', 'users.id')
+        .select('userName as host', 'motto', 'description', 'location', 'state', 'events.date')
+        .where('state', '=', 'NEW').first();
+    res.json(result);
+});
+
 router.get('/:id', verify, async (req, res) => {
     const result = await knex('events').where('id', req.params.id);
     res.json(result);
