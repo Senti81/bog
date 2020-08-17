@@ -13,34 +13,27 @@
     </v-card-title>
     <v-data-table
       :headers="headers"
-      :items="eventList"
+      :items="userList"
       :search="search"
       class="elevation-1 mt-5"
     ></v-data-table>
-    <AddEvent/>
   </v-card>
 </template>
 
 <script>
-import AddEvent from '@/components/AddEvent'
 import { mapState } from 'vuex'
 export default {
   data:() => ({
     headers: [
-      { text: 'Date', value: 'date', sortable: true },
-      { text: 'Host', value: 'host', sortable: true },
-      { text: 'Description', value: 'description', sortable: true },
-      { text: 'Location', value: 'location', sortable: true },
-      { text: 'Motto', value: 'motto', sortable: true },
-      { text: 'State', value: 'state' },
+      { text: 'Name', value: 'userName', sortable: true },
+      { text: 'Email', value: 'email', sortable: true },
+      { text: 'Role', value: 'role', sortable: true },
+      { text: 'Created', value: 'created_at', sortable: true },
     ],
     search: ''
   }),
-  components: {
-    AddEvent
-  },
   computed: {
-    ...mapState(['eventList'])
+    ...mapState(['userList']),
   }
 }
 </script>

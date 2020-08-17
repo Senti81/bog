@@ -1,27 +1,23 @@
 <template>
   <v-container fluid>
     <v-tabs center-active fixed-tabs v-model="tab" class="mx-auto">
-      <v-tab>New Event</v-tab>
-      <v-tab>Event List</v-tab>
-      <v-tab>New User</v-tab>
+      <v-tab>Events</v-tab>
+      <v-tab>Users</v-tab>
     </v-tabs>
     <v-tabs-items v-model="tab">
-      <v-tab-item>
-        <AddEvent/>
-      </v-tab-item>
       <v-tab-item>
         <EventList/>
       </v-tab-item>
       <v-tab-item>
-        Add New User Component
+        <UserList/>
       </v-tab-item>
     </v-tabs-items>
   </v-container>
 </template>
 
 <script>
-import AddEvent from '@/components/AddEvent'
 import EventList from '@/components/EventList'
+import UserList from '@/components/UserList'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -29,8 +25,8 @@ export default {
     tab: null,
   }),
   components: {
-    AddEvent,
-    EventList
+    EventList,
+    UserList
   },
   computed: {
     ...mapGetters(['getUserDetails', 'getToken'])
@@ -39,8 +35,8 @@ export default {
     if (this.getUserDetails.role !== 'ADMIN')
       this.$router.push('/')
     else {
-      this.$store.dispatch('loadUserList', this.getToken)
-      this.$store.dispatch('loadEventList', this.getToken)
+      this.$store.dispatch('loadUserList')
+      this.$store.dispatch('loadEventList')
     }
   }
 }

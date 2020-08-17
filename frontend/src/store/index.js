@@ -29,6 +29,9 @@ export default new Vuex.Store({
       state.token = '',
       state.userDetails = ''
       localStorage.removeItem('X-Auth')
+    },
+    addEvent: (state, newEvent) => {
+      state.eventList.push(newEvent)
     }
   },
   actions: {
@@ -58,18 +61,22 @@ export default new Vuex.Store({
         commit('toggleLoading')
       }
     },
-    async loadUserList({ commit }, token) {
+    async loadUserList({ commit }) {
       const result = await axios.get('/api/users', {
-        headers: { 'X-auth': token }
+        headers: { 'X-auth': this.state.token }
       })
       commit('loadUserList', result.data)
     },
-    async loadEventList({ commit }, token) {
+    async loadEventList({ commit }) {
       const result = await axios.get('/api/events', {
-        headers: { 'X-auth': token }
+        headers: { 'X-auth': this.state.token }
       })
-      commit('loadEventList', result.data)
+      commit('loadEventList',  result.data)
     },
+    async addEvent({ dispatch }, payload) {
+      await axios.post('/api/events', payload, { headers: { 'X-Auth': this.state.token}})
+      dispatch('loadEventList', payload)
+    }
   },
   modules: {
   }

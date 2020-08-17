@@ -6,11 +6,12 @@ exports.up = function(knex) {
       .notNullable()
       .unsigned()
       .index();
+    table.string('date')
     table.string('motto');
     table.string('description')
     table.string('location')
-    table.boolean('active')
-      .defaultTo(false);
+    table.integer('state')
+      .defaultTo(0)
     table.timestamp('created_at')
       .defaultTo(knex.fn.now());
     table.foreign('host').references('users.id')

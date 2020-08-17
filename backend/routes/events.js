@@ -3,7 +3,9 @@ const knex = require('../db/connection.js');
 const verify = require ('../middlewares/verifyToken')
 
 router.get('/', verify, async (req, res) => {
-    const result = await knex('events');
+    const result = await knex('events')
+        .join('users', 'host', '=', 'users.id')
+        .select('userName as host', 'motto', 'description', 'location', 'state', 'events.date');
     res.json(result);
 });
 
