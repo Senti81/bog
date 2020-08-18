@@ -12,8 +12,8 @@ router.get('/', verify, async (req, res) => {
 router.get('/active', verify, async (req, res) => {
     const result = await knex('events')
         .join('users', 'host', '=', 'users.id')
-        .select('userName as host', 'motto', 'description', 'location', 'state', 'events.date')
-        .where('state', '=', 'NEW').first();
+        .select('events.id as eventId', 'userName as host', 'motto', 'description', 'location', 'state', 'events.date')
+        .whereNot('state', '=', 'FINISHED').first();
     res.json(result);
 });
 
@@ -43,7 +43,7 @@ router.post('/', verify, async (req, res) => {
 });
 
 router.put('/:id', verify, async (req, res, next) => {
-    const result = await knex('events').where('id', req.params.id).update( { "active": 1 });
+    const result = await knex('events').where('id', req.params.id).update(req.body);
     result === 1 ? res.json(await knex('events').where('id', req.params.id).first()) : next();
 });
 module.exports = router;

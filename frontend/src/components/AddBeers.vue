@@ -1,7 +1,7 @@
 <template>
   <v-card 
-    class="mx-auto"
-    max-width="386"
+    class="mx-auto pa-2"
+    max-width="428"
     outlined
     elevation="4"
     >
@@ -26,12 +26,13 @@
         v-for="n in slider"
         :key="n"
         v-model="beerList[n-1]"
-        label="Beer"
+        label="Name of beer"
         single-line
         solo
         >
       </v-text-field>
       <v-btn
+      block
       color="success"
       class="mr-4"
       @click="submit"
@@ -42,11 +43,10 @@
 </template>
 
 <script>
-import axios from 'axios'
+import { mapState } from 'vuex'
 export default {
   data () {
     return {
-      event_id: 3,
       min: 1,
       max: 10,
       slider: 0,
@@ -57,13 +57,16 @@ export default {
     async submit() {
       const payload = this.beerList.map((name, index) => (
         { 
-          event_id: this.event_id,
+          event_id: this.eventDetails.eventId,
           position: index+1, 
           name 
         }
       ))
-      await axios.post('/api/beers', payload)
+      this.$store.dispatch('addBeersToCurrentEvent', payload)
     }
+  },
+  computed: {
+    ...mapState(['eventDetails']),
   }
 }
 </script>
