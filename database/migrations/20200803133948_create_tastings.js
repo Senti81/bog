@@ -15,7 +15,6 @@ exports.up = function(knex) {
       .unsigned()
       .index();
     table.integer('rating')
-      .notNullable();
     table.string('guess')
     table.timestamp('created_at')
       .defaultTo(knex.fn.now());
