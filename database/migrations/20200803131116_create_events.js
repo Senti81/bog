@@ -10,8 +10,8 @@ exports.up = function(knex) {
     table.string('motto');
     table.string('description')
     table.string('location')
-    table.enu('state',['NEW','PREPARING', 'OPEN', 'CLOSED', 'FINISHED'])
-      .defaultTo('NEW')
+    table.enu('state',['PREPARING', 'OPEN', 'CLOSED', 'FINISHED'])
+      .defaultTo('PREPARING')
     table.timestamp('created_at')
       .defaultTo(knex.fn.now());
     table.foreign('host').references('users.id')
