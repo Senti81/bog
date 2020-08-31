@@ -7,18 +7,21 @@
 
     <!-- BeerMaster View -->
     <div v-else-if="this.eventDetails.host === this.userDetails.name">
-      <AddBeers v-show="this.eventDetails.state === 'PREPARING'"/>
-      <BeerList v-show="this.eventDetails.state === 'OPEN'"/>
+      <AddBeers v-if="this.eventDetails.state === 'PREPARING'"/>
+      <BeerList v-else/>
     </div>
 
     <!-- Taster View -->
-    <h2 v-else></h2>
+    <div v-else>
+      <TastingForm/>
+    </div>
   </v-container>
 </template>
 
 <script>
 import AddBeers from '@/components/AddBeers'
 import BeerList from '@/components/BeerList'
+import TastingForm from '@/components/TastingForm'
 import { mapState } from 'vuex'
 export default {
   data: () => ({
@@ -27,10 +30,16 @@ export default {
   }),
   components: {
     AddBeers,
-    BeerList
+    BeerList,
+    TastingForm
   },
   computed: {
     ...mapState(['eventDetails', 'userDetails']),
   },
+  mounted() {
+    if (localStorage.getItem('beerList')) {
+      this.$store.commit('setBeersForCurrentEvent', JSON.parse(localStorage.getItem('beerList')))
+    }
+  }
 }
 </script>
