@@ -59,10 +59,19 @@ export default {
         { 
           event_id: this.eventDetails.eventId,
           position: index+1, 
-          name 
+          name,
         }
       ))
       this.$store.dispatch('addBeersToCurrentEvent', payload)
+      this.$store.dispatch('updateEventState', 'OPEN')
+      const beers = this.beerList.map((name, index) => (
+        {
+          nr: index+1,
+          name,
+          checked: false
+        }
+      ))
+      localStorage.setItem('beerList', JSON.stringify(beers))
     }
   },
   computed: {
