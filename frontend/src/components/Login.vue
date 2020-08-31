@@ -47,8 +47,9 @@
           </v-card-text>
           <v-card-actions>
             <v-btn color="primary" @click="submit('admin@app.com', 'maus1234')">Admin Login</v-btn>
-            <v-btn color="primary" @click="submit('user_a@app.com', 'maus1234')">User Login</v-btn>
-            <v-btn color="primary" @click="submit">Login</v-btn>
+            <v-btn color="primary" @click="submit('user_a@app.com', 'maus1234')">User_A Login</v-btn>
+            <v-btn color="primary" @click="submit('user_b@app.com', 'maus1234')">User_B Login</v-btn>
+            <!-- <v-btn color="primary" @click="submit">Login</v-btn> -->
           </v-card-actions>
         </v-card>
       </v-col>
